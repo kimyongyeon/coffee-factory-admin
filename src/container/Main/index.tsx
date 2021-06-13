@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import Login from '../Login';
 import Board from '../Board';
+import { Link, Route } from 'react-router-dom';
 
 const { Header, Content, Footer } = Layout;
 
@@ -15,10 +16,10 @@ function App({ }: AppProps) {
         <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
           <div className="logo" />
           <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-            <Menu.Item key="1">게시판관리  </Menu.Item>
-            <Menu.Item key="2">회원관리</Menu.Item>
-            <Menu.Item key="3">주문관리</Menu.Item>
-            <Menu.Item key="3">로그인관리  </Menu.Item>
+            <Menu.Item key="0"><Link to="/">홈 </Link> </Menu.Item>
+            <Menu.Item key="1"><Link to="/board">게시판관리 </Link> </Menu.Item>
+            <Menu.Item key="2"><Link to="/member">회원관리 </Link> </Menu.Item>
+            <Menu.Item key="3"><Link to="/order">주문관리 </Link> </Menu.Item>
           </Menu>
         </Header>
         <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64 }}>
@@ -28,7 +29,8 @@ function App({ }: AppProps) {
             <Breadcrumb.Item>App</Breadcrumb.Item>
           </Breadcrumb>
           <div className="site-layout-background" style={{ padding: 24, minHeight: 380 }}>
-            <Board bno="번호가안나옵니다." title="나는게시판입니다." content="게시판의 내용입니다. " />
+            <Route exact path="/" component={Login} />
+            <Route exact path="/board" component={Board} />
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
