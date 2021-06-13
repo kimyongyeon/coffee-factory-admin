@@ -3,6 +3,7 @@ import { Layout, Menu, Breadcrumb } from 'antd';
 import Login from '../Login';
 import Board from '../Board';
 import { Link, Route } from 'react-router-dom';
+import Member from '../Member';
 
 const { Header, Content, Footer } = Layout;
 
@@ -31,6 +32,7 @@ function App({ }: AppProps) {
           <div className="site-layout-background" style={{ padding: 24, minHeight: 380 }}>
             <Route exact path="/" component={Login} />
             <Route exact path="/board" component={Board} />
+            <Route exact path="/member" component={Member} />
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
