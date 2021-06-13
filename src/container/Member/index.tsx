@@ -1,145 +1,103 @@
-import { Table, Input, Button, Space } from 'antd';
-import Highlighter from 'react-highlight-words';
-import { SearchOutlined } from '@ant-design/icons';
+import { Table } from 'antd';
+import axios from 'axios';
 import React from 'react';
 
-const data = [
+const columns = [
   {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
+    title: '이메일',
+    dataIndex: 'email',
+    key: 'email',
+    width: '30%',
   },
   {
-    key: '2',
-    name: 'Joe Black',
-    age: 42,
-    address: 'London No. 1 Lake Park',
+    title: '비밀번호',
+    dataIndex: 'password',
+    key: 'password',
+    width: '30%',
   },
   {
-    key: '3',
-    name: 'Jim Green',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
+    title: '프로필 이미지',
+    dataIndex: 'img_url',
+    key: 'img_url',
+    width: '20%',
   },
   {
-    key: '4',
-    name: 'Jim Red',
-    age: 32,
-    address: 'London No. 2 Lake Park',
+    title: '등록자',
+    dataIndex: 'reg_writer',
+    key: 'reg_writer',
   },
 ];
 
+const getRandomuserParams = (params: any) => ({
+  results: params.pagination.pageSize,
+  page: params.pagination.current,
+  ...params,
+});
+
 class index extends React.Component {
+
   state = {
     searchText: '',
     searchedColumn: '',
+    data: [],
+    pagination: {
+      current: 1,
+      pageSize: 10,
+    },
+    loading: false,
   };
 
-  getColumnSearchProps = dataIndex => ({
-    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
-      <div style={{ padding: 8 }}>
-        <Input
-          ref={node => {
-            this.searchInput = node;
-          }}
-          placeholder={`Search ${dataIndex}`}
-          value={selectedKeys[0]}
-          onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-          onPressEnter={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
-          style={{ marginBottom: 8, display: 'block' }}
-        />
-        <Space>
-          <Button
-            type="primary"
-            onClick={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
-            icon={<SearchOutlined />}
-            size="small"
-            style={{ width: 90 }}
-          >
-            Search
-          </Button>
-          <Button onClick={() => this.handleReset(clearFilters)} size="small" style={{ width: 90 }}>
-            Reset
-          </Button>
-          <Button
-            type="link"
-            size="small"
-            onClick={() => {
-              confirm({ closeDropdown: false });
-              this.setState({
-                searchText: selectedKeys[0],
-                searchedColumn: dataIndex,
-              });
-            }}
-          >
-            Filter
-          </Button>
-        </Space>
-      </div>
-    ),
-    filterIcon: filtered => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
-    onFilter: (value, record) =>
-      record[dataIndex]
-        ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase())
-        : '',
-    onFilterDropdownVisibleChange: visible => {
-      if (visible) {
-        setTimeout(() => this.searchInput.select(), 100);
-      }
-    },
-    render: text =>
-      this.state.searchedColumn === dataIndex ? (
-        <Highlighter
-          highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
-          searchWords={[this.state.searchText]}
-          autoEscape
-          textToHighlight={text ? text.toString() : ''}
-        />
-      ) : (
-        text
-      ),
-  });
+  componentDidMount() {
+    const { pagination } = this.state;
+    this.fetch({ pagination });
+  }
 
-  handleSearch = (selectedKeys, confirm, dataIndex) => {
-    confirm();
-    this.setState({
-      searchText: selectedKeys[0],
-      searchedColumn: dataIndex,
+  handleTableChange = (pagination, filters, sorter) => {
+    this.fetch({
+      sortField: sorter.field,
+      sortOrder: sorter.order,
+      pagination,
+      ...filters,
     });
   };
 
-  handleReset = clearFilters => {
-    clearFilters();
-    this.setState({ searchText: '' });
+  fetch = (params: any = {}) => {
+    this.setState({ loading: true });
+    let self = this;
+    // 1 : self 
+    // 2 : $.prox(handler, this);
+    // 3 : axios.bind(this);
+    axios({
+      method: 'get',
+      url: 'http://coffee-oda.shop:3000/api/user',
+      responseType: 'json',
+      data: getRandomuserParams(params),
+    }).then(function (resp: any) {
+      console.log(resp);
+      self.renderData(resp.data.body, params);
+    });
   };
 
+  renderData(data, params) {
+    this.setState({
+      loading: false,
+      data: data,
+      pagination: {
+        ...params.pagination,
+        total: data.length,
+      },
+    });
+  }
+
   render() {
-    const columns = [
-      {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
-        width: '30%',
-        ...this.getColumnSearchProps('name'),
-      },
-      {
-        title: 'Age',
-        dataIndex: 'age',
-        key: 'age',
-        width: '20%',
-        ...this.getColumnSearchProps('age'),
-      },
-      {
-        title: 'Address',
-        dataIndex: 'address',
-        key: 'address',
-        ...this.getColumnSearchProps('address'),
-        sorter: (a, b) => a.address.length - b.address.length,
-        sortDirections: ['descend', 'ascend'],
-      },
-    ];
-    return <Table columns={columns} dataSource={data} />;
+    const { data, pagination, loading } = this.state;
+    return <Table
+      columns={columns}
+      dataSource={data}
+      pagination={pagination}
+      loading={loading}
+      onChange={this.handleTableChange}
+    />;
   }
 }
 export default index;

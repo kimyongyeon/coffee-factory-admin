@@ -16,7 +16,7 @@ function App({ }: AppProps) {
       <Layout>
         <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
           <div className="logo" />
-          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
+          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['0']}>
             <Menu.Item key="0"><Link to="/">홈 </Link> </Menu.Item>
             <Menu.Item key="1"><Link to="/board">게시판관리 </Link> </Menu.Item>
             <Menu.Item key="2"><Link to="/member">회원관리 </Link> </Menu.Item>
