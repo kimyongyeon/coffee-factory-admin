@@ -65,7 +65,7 @@ const index = (props: Props) => {
     setLoading(true);
     axios({
       method: 'get',
-      url: 'http://coffee-oda.shop:3000/api/user',
+      url: 'http://coffee-oda.shop:3000/api/order',
       responseType: 'json',
       data: getRandomuserParams(params),
     }).then(function (resp: any) {

@@ -19,9 +19,9 @@ function App({ }: AppProps) {
           <div className="logo" />
           <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['0']}>
             <Menu.Item key="0"><Link to="/">홈 </Link> </Menu.Item>
-            <Menu.Item key="1"><Link to="/board">게시판관리 </Link> </Menu.Item>
-            <Menu.Item key="2"><Link to="/member">회원관리 </Link> </Menu.Item>
-            <Menu.Item key="3"><Link to="/order">주문관리 </Link> </Menu.Item>
+            <Menu.Item key="1"><Link to="/board">게시판 관리 </Link> </Menu.Item>
+            <Menu.Item key="2"><Link to="/member">회원 관리 </Link> </Menu.Item>
+            <Menu.Item key="3"><Link to="/order">주문 관리 </Link> </Menu.Item>
           </Menu>
         </Header>
         <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64 }}>
