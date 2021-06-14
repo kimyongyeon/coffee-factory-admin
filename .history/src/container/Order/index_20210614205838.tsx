@@ -88,7 +88,7 @@ const index = (props: Props) => {
 
   return (
     <div>
-      <Space direction="vertical" size={4}>
+      <Space direction="vertical" size={3}>
         <RangePicker showTime />
         <Button>조회</Button>
       </Space>

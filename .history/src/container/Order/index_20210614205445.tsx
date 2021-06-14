@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, DatePicker, Space, Table } from 'antd';
+import { DatePicker, Space, Table } from 'antd';
 import axios from 'axios';
 
 const { RangePicker } = DatePicker;
@@ -77,7 +77,7 @@ const index = (props: Props) => {
       console.log(resp);
 
       setLoading(false);
-      setData(resp.data.body);
+      // setData(resp.data.body);
       setPagination({
         ...params.pagination,
         total: resp.data.body.length
@@ -88,18 +88,17 @@ const index = (props: Props) => {
 
   return (
     <div>
-      <Space direction="vertical" size={4}>
+      <Space direction="vertical" size={12}>
         <RangePicker showTime />
-        <Button>조회</Button>
+        <Table
+          columns={columns}
+          dataSource={data}
+          pagination={pagination}
+          loading={loading}
+          // @ts-ignore
+          onChange={handleTableChange}
+        />
       </Space>
-      <Table
-        columns={columns}
-        dataSource={data}
-        pagination={pagination}
-        loading={loading}
-        // @ts-ignore
-        onChange={handleTableChange}
-      />
     </div>
   )
 }

@@ -88,18 +88,18 @@ const index = (props: Props) => {
 
   return (
     <div>
-      <Space direction="vertical" size={4}>
+      <Space direction="vertical" size={3}>
         <RangePicker showTime />
         <Button>조회</Button>
+        <Table
+          columns={columns}
+          dataSource={data}
+          pagination={pagination}
+          loading={loading}
+          // @ts-ignore
+          onChange={handleTableChange}
+        />
       </Space>
-      <Table
-        columns={columns}
-        dataSource={data}
-        pagination={pagination}
-        loading={loading}
-        // @ts-ignore
-        onChange={handleTableChange}
-      />
     </div>
   )
 }
