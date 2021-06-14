@@ -52,7 +52,7 @@ class index extends React.Component {
     this.fetch({ pagination });
   }
 
-  handleTableChange = (pagination, filters, sorter) => {
+  handleTableChange = (pagination: any, filters: any, sorter: { field: any; order: any; }, extra: any) => {
     this.fetch({
       sortField: sorter.field,
       sortOrder: sorter.order,
@@ -78,7 +78,7 @@ class index extends React.Component {
     });
   };
 
-  renderData(data, params) {
+  renderData(data: string | any[], params: { pagination: any; }) {
     this.setState({
       loading: false,
       data: data,
@@ -96,6 +96,7 @@ class index extends React.Component {
       dataSource={data}
       pagination={pagination}
       loading={loading}
+      // @ts-ignore
       onChange={this.handleTableChange}
     />;
   }
