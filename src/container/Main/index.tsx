@@ -4,6 +4,7 @@ import Login from '../Login';
 import Board from '../Board';
 import { Link, Route } from 'react-router-dom';
 import Member from '../Member';
+import Order from '../Order';
 
 const { Header, Content, Footer } = Layout;
 
@@ -33,6 +34,7 @@ function App({ }: AppProps) {
             <Route exact path="/" component={Login} />
             <Route exact path="/board" component={Board} />
             <Route exact path="/member" component={Member} />
+            <Route exact path="/order" component={Order} />
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
