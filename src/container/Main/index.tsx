@@ -1,10 +1,13 @@
 import React from 'react';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu } from 'antd';
 import Login from '../Login';
 import Board from '../Board';
 import { Link, Route } from 'react-router-dom';
 import Member from '../Member';
 import Order from '../Order';
+import OrderDetail from '../Order/detail';
+import Product from '../Product';
+import ProductDetial from '../Product/detail';
 
 const { Header, Content, Footer } = Layout;
 
@@ -22,22 +25,21 @@ function App({ }: AppProps) {
             <Menu.Item key="1"><Link to="/board">게시판 관리 </Link> </Menu.Item>
             <Menu.Item key="2"><Link to="/member">회원 관리 </Link> </Menu.Item>
             <Menu.Item key="3"><Link to="/order">주문 관리 </Link> </Menu.Item>
+            <Menu.Item key="4"><Link to="/product">상품 관리 </Link> </Menu.Item>
           </Menu>
         </Header>
         <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64 }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
           <div className="site-layout-background" style={{ padding: 24, minHeight: 380 }}>
             <Route exact path="/" component={Login} />
             <Route exact path="/board" component={Board} />
             <Route exact path="/member" component={Member} />
             <Route exact path="/order" component={Order} />
+            <Route exact path="/order/detail" component={OrderDetail} />
+            <Route exact path="/product" component={Product} />
+            <Route exact path="/product/detail" component={ProductDetial} />
           </div>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+        <Footer style={{ textAlign: 'center' }}>Ant Design ©2021 Created by Coffee Factory</Footer>
       </Layout>
     </>
   );
