@@ -3,36 +3,17 @@ import type { SizeType } from 'antd/lib/config-provider/SizeContext';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import { TOrder, useOrderState } from  '../../recoil/order';
 const { RangePicker } = DatePicker;
 
 interface Props {
-    id: string;
-    productId: string;
-    orderStartDate: string;
-    orderEndDate: string;
-    orderState: string;
     history: any;
     location: any;
 }
 
-type Order = {
-    _id: string;
-    endDateTime: string;
-    startDateTime: string;
-    orderState: string;
-    userId: string;
-    productId: string;
-}
-
 const Detail = (props: Props) => {
 
-    const [id, setId] = useState('');
-    const [productId, setProductId] = useState('');
-    const [startDateTime, setStartDateTime] = useState('');
-    const [endDateTime, setEndDateTime] = useState('');
-    const [orderState, setOrderState] = useState('');
-    const [userId, setUserId] = useState('');
-
+    const [orderState, setOrderState] = useOrderState();
     const [componentSize, setComponentSize] = useState<SizeType | 'default'>('default');
     const onFormLayoutChange = ({ size }: { size: SizeType }) => {
         setComponentSize(size);
@@ -42,13 +23,8 @@ const Detail = (props: Props) => {
         const styleType = props.location.type;
         if (styleType !== 'R') {
             try {
-                const payload: Order = props.location.item;
-                setId(payload._id);
-                setProductId(payload.productId);
-                setUserId(payload.userId);
-                setStartDateTime(payload.startDateTime);
-                setEndDateTime(payload.endDateTime);
-                setOrderState(payload.orderState);
+                const payload: TOrder = props.location.item;
+                setOrderState(payload);
             } catch (e) {
                 console.log(e);
             }
@@ -66,11 +42,11 @@ const Detail = (props: Props) => {
     const onClickReg = (e: any) => {
         alert('등록 버튼 클릭!');
         const order = {
-            userId: userId,
-            productId: productId,
-            startDateTime: startDateTime,
-            endDateTime: endDateTime,
-            orderState: orderState
+            userId: orderState?.id,
+            productId: orderState?.productId,
+            startDateTime: orderState?.orderStartDate,
+            endDateTime: orderState?.orderEndDate,
+            orderState: orderState?.state
         };
         axios({
             method: 'post',
@@ -91,13 +67,13 @@ const Detail = (props: Props) => {
     const onInputChange = (e: any) => {
         switch(e.target.name) {
             case 'userId':
-                setUserId(e.target.value);
+                setOrderState({...orderState, userId: orderState?.id } )
                 break;
             case 'productId':
-                setProductId(e.target.value);
+                setOrderState({...orderState, productId: orderState?.productId});
                 break;
             case 'orderState':
-                setOrderState(e.target.value);
+                setOrderState({...orderState, state: orderState?.state});
                 break;
         }
     }
@@ -119,10 +95,10 @@ const Detail = (props: Props) => {
                 size={componentSize as SizeType}
             >
                 <Form.Item label="아이디">
-                    <Input name='userId' value={userId} onChange={onInputChange} />
+                    <Input name='userId' value={orderState?.userId} onChange={onInputChange} />
                 </Form.Item>
                 <Form.Item label="상품아이디">
-                    <Input name='productId' value={productId} onChange={onInputChange} />
+                    <Input name='productId' value={orderState?.productId} onChange={onInputChange} />
                 </Form.Item>
                 <Form.Item label="주문일자">
                     <RangePicker
@@ -137,12 +113,12 @@ const Detail = (props: Props) => {
                     />
                 </Form.Item>
                 <Form.Item label="주문상태">
-                    <Input name='orderState' value={orderState} onChange={onInputChange} />
+                    <Input name='orderState' value={orderState?.state} onChange={onInputChange} />
                 </Form.Item>
                 <Space>
-                    <Button onClick={onClickEdit} disabled={!id}>수정</Button>
-                    <Button onClick={onClickDel} disabled={!id}>삭제</Button>
-                    <Button onClick={onClickReg} disabled={!!id}>등록</Button>
+                    <Button onClick={onClickEdit} disabled={!orderState?.id}>수정</Button>
+                    <Button onClick={onClickDel} disabled={!orderState?.id}>삭제</Button>
+                    <Button onClick={onClickReg} disabled={!!orderState?.id}>등록</Button>
                 </Space>
             </Form>
         </div>
