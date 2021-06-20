@@ -1,23 +1,16 @@
-import { Button, DatePicker, Space, Table } from 'antd';
-import { Input } from 'antd';
-const { Search } = Input;
+import { Button, DatePicker, Input, Space, Table } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+const { Search } = Input;
 
 const { RangePicker } = DatePicker;
 interface Props {
   history: any
 }
-
 type pagination = {
   pageSize: number;
   current: number;
 }
-
-// const getPayLoadToQueryString = (payload: any) => {
-//   console.log(payload);
-//   return Object.entries(payload).map(e => e.join('=')).join('&');
-// }
 
 const getRandomuserParams = (params: { pagination: pagination }) => ({
   results: params.pagination.pageSize,

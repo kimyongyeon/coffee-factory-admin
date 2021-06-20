@@ -2,59 +2,18 @@ import { Button, Form, Input, PageHeader, Space } from 'antd';
 import type { SizeType } from 'antd/lib/config-provider/SizeContext';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { TProduct, useProductState } from '../../recoil/product';
 
 interface Props {
-    _id: string;
-    productId: string;
-    name: string;
-    price: string;
-    volume: string;
-    size: string;
-    sort: string;
-    imgUrl: string;
-    useYn: string;
-    hotIceGb: string;
-    whippingYn: string;
-    shotYn: string;
-    category: string;
-
     history: any;
     location: any;
 }
 
-type Product = {
-    _id: string;
-    productId: string;
-    name: string;
-    price: string;
-    volume: string;
-    size: string;
-    sort: string;
-    imgUrl: string;
-    useYn: string;
-    hotIceGb: string;
-    whippingYn: string;
-    shotYn: string;
-    category: string;
-}
-
 const Detail = (props: Props) => {
 
-    const [id, setId] = useState('');
-    const [productId, setProductId] = useState('');
-    const [name, setName] = useState('');
-    const [price, setPrice] = useState('');
-    const [volume, setVolume] = useState('');
-    const [size, setSize] = useState('');
-    const [sort, setSort] = useState('');
-    const [imgUrl, setImgUrl] = useState('');
-    const [useYn, setUseYn] = useState('');
-    const [hotIceGb, setHotIceGb] = useState('');
-    const [whippingYn, setWhippingYn] = useState('');
-    const [shotYn, setShotYn] = useState('');
-    const [category, setCategory] = useState('');
-
+    const [productState, setProductState] = useProductState();
     const [componentSize, setComponentSize] = useState<SizeType | 'default'>('default');
+
     const onFormLayoutChange = ({ size }: { size: SizeType }) => {
         setComponentSize(size);
     };
@@ -63,20 +22,8 @@ const Detail = (props: Props) => {
         const styleType = props.location.type;
         if (styleType !== 'R') {
             try {
-                const payload: Product = props.location.item;
-                setId(payload._id);
-                setProductId(payload.productId);
-                setName(payload.name);
-                setPrice(payload.price);
-                setVolume(payload.volume);
-                setSize(payload.size);
-                setSort(payload.sort);
-                setImgUrl(payload.imgUrl);
-                setUseYn(payload.useYn);
-                setHotIceGb(payload.hotIceGb);
-                setWhippingYn(payload.whippingYn);
-                setShotYn(payload.shotYn);
-                setCategory(payload.category);
+                const payload: TProduct = props.location.item;
+                setProductState(payload);
             } catch (e) {
                 console.log(e);
             }
@@ -110,40 +57,40 @@ const Detail = (props: Props) => {
 
         switch(e.target.name) {
             case 'productId':
-                setProductId(e.target.value);
+                setProductState({...productState, productId: e.target.value});
                 break;
             case 'name':
-                setName(e.target.value);
+                setProductState({...productState, name: e.target.value});
                 break;
             case 'price':
-                setPrice(e.target.value);
+                setProductState({...productState, price: e.target.value});
                 break;
             case 'volume':
-                setVolume(e.target.value);
+                setProductState({...productState, volume: e.target.value});
                 break;
             case 'size':
-                setSize(e.target.value);
+                setProductState({...productState, size: e.target.value});
                 break;
             case 'sort':
-                setSort(e.target.value);
+                setProductState({...productState, sort: e.target.value});
                 break;
             case 'imgUrl':
-                setImgUrl(e.target.value);
+                setProductState({...productState, imgUrl: e.target.value});
                 break;
             case 'useYn':
-                setUseYn(e.target.value);
+                setProductState({...productState, useYn: e.target.value});
                 break;
             case 'gb':
-                setHotIceGb(e.target.value);
+                setProductState({...productState, hotIceGb: e.target.value});
                 break;
             case 'whipping':
-                setWhippingYn(e.target.value);
+                setProductState({...productState, whippingYn: e.target.value});
                 break;
             case 'shot':
-                setShotYn(e.target.value);
+                setProductState({...productState, shotYn: e.target.value});
                 break;
             case 'category':
-                setCategory(e.target.value);
+                setProductState({...productState, category: e.target.value});
                 break;
         }
     }
@@ -164,45 +111,45 @@ const Detail = (props: Props) => {
                 size={componentSize as SizeType}
             >
                 <Form.Item label="상품코드">
-                    <Input name="productId" value={productId} onChange={onChange} />
+                    <Input name="productId" value={productState?.productId} onChange={onChange} />
                 </Form.Item>
                 <Form.Item label="상품명">
-                    <Input name="name" value={name} onChange={onChange} />
+                    <Input name="name" value={productState?.name} onChange={onChange} />
                 </Form.Item>
                 <Form.Item label="가격">
-                    <Input name="price" value={price} onChange={onChange} />
+                    <Input name="price" value={productState?.price} onChange={onChange} />
                 </Form.Item>
                 <Form.Item label="용량">
-                    <Input name="volume" value={volume} onChange={onChange} />
+                    <Input name="volume" value={productState?.volume} onChange={onChange} />
                 </Form.Item>
                 <Form.Item label="크기">
-                    <Input name="size" value={size} onChange={onChange} />
+                    <Input name="size" value={productState?.size} onChange={onChange} />
                 </Form.Item>
                 <Form.Item label="정렬">
-                    <Input name="sort" value={sort} onChange={onChange} />
+                    <Input name="sort" value={productState?.sort} onChange={onChange} />
                 </Form.Item>
                 <Form.Item label="커피사진">
-                    <Input name="imgUrl" value={imgUrl} onChange={onChange} />
+                    <Input name="imgUrl" value={productState?.imgUrl} onChange={onChange} />
                 </Form.Item>
                 <Form.Item label="사용유무">
-                    <Input name="useYn" value={useYn} onChange={onChange} />
+                    <Input name="useYn" value={productState?.useYn} onChange={onChange} />
                 </Form.Item>
                 <Form.Item label="구분">
-                    <Input name="gb" value={hotIceGb} onChange={onChange} />
+                    <Input name="gb" value={productState?.hotIceGb} onChange={onChange} />
                 </Form.Item>
                 <Form.Item label="휘핑">
-                    <Input name="whipping" value={whippingYn} onChange={onChange} />
+                    <Input name="whipping" value={productState?.whippingYn} onChange={onChange} />
                 </Form.Item>
                 <Form.Item label="샷">
-                    <Input name="shot" value={shotYn} onChange={onChange} />
+                    <Input name="shot" value={productState?.shotYn} onChange={onChange} />
                 </Form.Item>
                 <Form.Item label="카테고리">
-                    <Input name="category" value={category} onChange={onChange} />
+                    <Input name="category" value={productState?.category} onChange={onChange} />
                 </Form.Item>
                 <Space>
-                    <Button onClick={onClickEdit} disabled={!id}>수정</Button>
-                    <Button onClick={onClickDel} disabled={!id}>삭제</Button>
-                    <Button onClick={onClickReg} disabled={!!id}>등록</Button>
+                    <Button onClick={onClickEdit} disabled={!productState?._id}>수정</Button>
+                    <Button onClick={onClickDel} disabled={!productState?._id}>삭제</Button>
+                    <Button onClick={onClickReg} disabled={!!productState?._id}>등록</Button>
                 </Space>
             </Form>
         </div>
