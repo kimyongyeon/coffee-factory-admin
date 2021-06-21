@@ -9,6 +9,8 @@ import OrderDetail from '../Order/detail';
 import Product from '../Product';
 import ProductDetial from '../Product/detail';
 import { RecoilRoot } from 'recoil';
+import MenuList from '../Menu';
+import MenuDetail from '../Menu/detail';
 
 const { Header, Content, Footer } = Layout;
 
@@ -25,8 +27,9 @@ function App({ }: AppProps) {
             <Menu.Item key="0"><Link to="/">홈 </Link> </Menu.Item>
             <Menu.Item key="1"><Link to="/board">게시판 관리 </Link> </Menu.Item>
             <Menu.Item key="2"><Link to="/member">회원 관리 </Link> </Menu.Item>
-            <Menu.Item key="3"><Link to="/order">주문 관리 </Link> </Menu.Item>
-            <Menu.Item key="4"><Link to="/product">상품 관리 </Link> </Menu.Item>
+            <Menu.Item key="3"><Link to="/menu">메뉴 관리 </Link> </Menu.Item>
+            <Menu.Item key="4"><Link to="/order">주문 관리 </Link> </Menu.Item>
+            <Menu.Item key="5"><Link to="/product">상품 관리 </Link> </Menu.Item>
           </Menu>
         </Header>
         <RecoilRoot>
@@ -39,6 +42,8 @@ function App({ }: AppProps) {
               <Route exact path="/order/detail" component={OrderDetail} />
               <Route exact path="/product" component={Product} />
               <Route exact path="/product/detail" component={ProductDetial} />
+              <Route exact path="/menu" component={MenuList} />
+              <Route exact path="/menu/detail" component={MenuDetail} />
             </div>
           </Content>
         </RecoilRoot>
