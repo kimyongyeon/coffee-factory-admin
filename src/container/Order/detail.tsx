@@ -67,13 +67,13 @@ const Detail = (props: Props) => {
     const onInputChange = (e: any) => {
         switch(e.target.name) {
             case 'userId':
-                setOrderState({...orderState, userId: orderState?.id } )
+                setOrderState({...orderState, userId: e.target.value } )
                 break;
             case 'productId':
-                setOrderState({...orderState, productId: orderState?.productId});
+                setOrderState({...orderState, productId: e.target.value});
                 break;
             case 'orderState':
-                setOrderState({...orderState, state: orderState?.state});
+                setOrderState({...orderState, state: e.target.value});
                 break;
         }
     }

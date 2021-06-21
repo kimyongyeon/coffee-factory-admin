@@ -59,16 +59,16 @@ const Detail = (props: Props) => {
   const onInputChange = (e: any) => {
     switch (e.target.name) {
       case 'menuId':
-        setMenuState({ ...menuState, menuId: menuState?.menuId })
+        setMenuState({ ...menuState, menuId: e.target.value })
         break;
       case 'menuName':
-        setMenuState({ ...menuState, menuName: menuState?.menuName });
+        setMenuState({ ...menuState, menuName: e.target.value });
         break;
       case 'useYn':
-        setMenuState({ ...menuState, useYn: menuState?.useYn });
+        setMenuState({ ...menuState, useYn: e.target.value });
         break;
       case 'menuCheck':
-        setMenuState({ ...menuState, menuCheck: menuState?.menuCheck });
+        setMenuState({ ...menuState, menuCheck: e.target.value });
         break;
     }
   }
