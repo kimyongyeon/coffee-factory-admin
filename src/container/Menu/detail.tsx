@@ -30,15 +30,36 @@ const Detail = (props: Props) => {
   }, []);
 
   const onClickEdit = (e: any) => {
-    alert('수정 버튼 클릭!');
+    const menu = {
+      menuId: menuState?.menuId,
+      menuName: menuState?.menuName,
+      useYn: 'Y',
+      menuCheck: '1'
+    };
+    axios({
+      method: 'put',
+      url: 'http://coffee-oda.shop:3000/api/menu',
+      responseType: 'json',
+      data: menu,
+    }).then(function (resp: any) {
+      alert('수정 완료!');
+      props.history.push('/menu');
+    });
   }
 
   const onClickDel = (e: any) => {
-    alert('삭제 버튼 클릭!');
+    axios({
+      method: 'delete',
+      url: 'http://coffee-oda.shop:3000/api/menu/' + menuState?.menuId,
+      responseType: 'json',
+      data: {},
+    }).then(function (resp: any) {
+      alert('삭제 완료!');
+      props.history.push('/menu');
+    });
   }
 
   const onClickReg = (e: any) => {
-    alert('등록 버튼 클릭!');
     const menu = {
       menuId: menuState?.menuId,
       menuName: menuState?.menuName,
