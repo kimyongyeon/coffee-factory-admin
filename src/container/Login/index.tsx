@@ -1,3 +1,5 @@
+import { Form, Input, Checkbox, Button } from 'antd'
+import layout from 'antd/lib/layout'
 import React from 'react'
 
 interface Props {
@@ -7,11 +9,29 @@ interface Props {
 
 const index = (props: Props) => {
     return (
-        <div>
-            <h1>login 화면 입니다.</h1>
-            {props.userId}
-            {props.password}
-        </div>
+        <Form
+      {...layout}
+      name="basic"
+      initialValues={{ remember: true }}
+    >
+      <Form.Item
+        label="Username"
+        name="username"
+        rules={[{ required: true, message: 'Please input your username!' }]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Password"
+        name="password"
+        rules={[{ required: true, message: 'Please input your password!' }]}
+      >
+        <Input.Password />
+      </Form.Item>
+
+
+    </Form>
     )
 }
 
