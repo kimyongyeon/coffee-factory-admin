@@ -1,4 +1,4 @@
-import { Form, Input, Checkbox, Button } from 'antd'
+import { Form, Input, Checkbox, Button, Space } from 'antd'
 import layout from 'antd/lib/layout'
 import React from 'react'
 
@@ -7,12 +7,30 @@ interface Props {
     password: string;
 }
 
+
+
 const index = (props: Props) => {
+  const layout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 },
+  };
+  const tailLayout = {
+    wrapperCol: { offset: 8, span: 16 },
+  };
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
     return (
+      <Space direction="vertical">
         <Form
       {...layout}
       name="basic"
       initialValues={{ remember: true }}
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
     >
       <Form.Item
         label="Username"
@@ -29,9 +47,18 @@ const index = (props: Props) => {
       >
         <Input.Password />
       </Form.Item>
+      <Form.Item {...tailLayout} name="remember" valuePropName="checked">
+        <Checkbox>Remember me</Checkbox>
+      </Form.Item>
 
+      <Form.Item {...tailLayout}>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
 
     </Form>
+    </Space>
     )
 }
 
