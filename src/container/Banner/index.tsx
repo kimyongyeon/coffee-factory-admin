@@ -1,5 +1,5 @@
 import React from 'react';
-import HostNameList from '../../component/common/HostNameList';
+import PagingList from '../../component/common/PagingList';
 
 // 테스트 데이터가 필요하다. 
 
@@ -70,7 +70,14 @@ const index = (props: Props) => {
 
     return (
         <div>
-            <HostNameList regClick={onClickReg} history={history} colums={columns} pathName={'20210621'} searchName={'배너'} hostName={'http://coffee-oda.shop:3000/api/banner/all/'} />
+            <PagingList
+                regClick={onClickReg}
+                history={history}
+                colums={columns}
+                pathName={'20210621'}
+                searchName={'배너'}
+                hostName={'http://coffee-oda.shop:3000/api/banner/all/'}
+            />
         </div>
     )
 }

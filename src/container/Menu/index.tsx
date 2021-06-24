@@ -1,5 +1,5 @@
 import React from 'react';
-import DefaultList from '../../component/common/DefaultList';
+import PagingList from '../../component/common/PagingList';
 
 interface Props {
   history: any;
@@ -29,7 +29,7 @@ const index = (props: Props) => {
       title: '메뉴아이디',
       dataIndex: 'menuId',
       key: 'menuId',
-      width: '30%',
+      width: 100,
       render: (text: string, item: any) => 
       <a onClick={() => onClickEdit(this, item)}>{text}</a>
     },
@@ -37,24 +37,31 @@ const index = (props: Props) => {
       title: '메뉴명',
       dataIndex: 'menuName',
       key: 'menuName',
-      width: '30%',
     },
     {
       title: '사용유무',
       dataIndex: 'useYn',
       key: 'useYn',
-      width: '20%',
+      width: 100,
     },
     {
       title: '메뉴체크',
       dataIndex: 'menuCheck',
       key: 'menuCheck',
+      width: 100,
     },
   ];
 
   return (
     <div>
-      <DefaultList regClick={onClickReg} history={history} colums={columns} pathName={'menu'} searchName={'메뉴'} />
+      <PagingList
+        regClick={onClickReg}
+        history={history}
+        colums={columns}
+        pathName={'menu'}
+        searchName={'메뉴'}
+        hostName={'http://coffee-oda.shop:3000/api/'}
+      />
     </div>
   )
 }
