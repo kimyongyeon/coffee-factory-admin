@@ -3,6 +3,7 @@ import { atom, useRecoilState } from "recoil";
 export type User = {
     user_id?: string;
     password?:	string;
+    isLogin?: boolean;
 };
 
 const userState = atom<User | null>({
