@@ -4,6 +4,7 @@ export type User = {
     user_id?: string;
     password?:	string;
     isLogin?: boolean;
+    cookie?: any;
 };
 
 const userState = atom<User | null>({

@@ -1,7 +1,7 @@
 import { Form, Input, Checkbox, Button, Space } from 'antd'
 import layout from 'antd/lib/layout'
 import axios from 'axios';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { User, useUserState } from '../../recoil/login';
 
 
@@ -10,10 +10,9 @@ interface Props {
     user_id: string;
     password: string;
     isLogin : boolean;
+    cookie : any;
+
 }
-
-
-
 const index = (props: Props) => {
   const [userState, setUserState] = useUserState(); //userState =atom<User> ,해당 데이터들 관리
   //아톰의값을읽는 컴포넌트들은 암묵적으로 atom을 구독한다 그래서 아톰에 변화가 있으면
@@ -32,29 +31,41 @@ const index = (props: Props) => {
   //   console.log('Failed:', errorInfo);
   // };
 
+  useEffect(() => {
+   if(localStorage.getItem('uzi') === '1'){
+    setUserState({...userState, isLogin: true } ) 
+   }else{
+    setUserState({...userState, isLogin: false, cookie: ''} ) 
+   }
+      // if(userState?.isLogin === false || userState?.isLogin === undefined ){
+     
+      // }else if(userState?.isLogin === true){
+      //   localStorage.setItem( 'uzi', 'true');
+      //   setUserState({...userState, isLogin: true } ) 
+      // }
+  
+  }, []);
+  console.log('로그인전',userState)
+
   const onClickSubmit = (e: any) => {
     const user  = {
       user_id: userState?.user_id,
       password: userState?.password,
       isLogin : userState?.isLogin
     };
-    console.log('ididididididi',user.user_id);
-    console.log('pwpwpwpwpwpwpwp',user.password);
-    console.log('######',user);
     axios({
       method: 'post',
-      url: 'http://localhost:8888/api/auth/login',
+      url: 'http://coffee-oda.shop:3000/api/auth/login',
       responseType: 'json',
       data: user,
     }).then(function (resp: any) {
       alert('로그인하셨습니다');
-      setUserState({...userState,isLogin : true});
-      console.log( '######',userState?.isLogin);
+      localStorage.setItem( 'uzi', '1');
+      console.log('쿠키쿠키쿠키', resp.data.token);
+      setUserState({...userState, isLogin : true, cookie : resp.data.token});
+     // setUserState({...userState, cookie : resp.Cookie});
+      console.log('로그인후',userState)
       //props.history.push('/');
-      // return(
-      //   <div>dfdfdf</div>
-      // )
-
     });
   }
 
@@ -69,7 +80,8 @@ const index = (props: Props) => {
        
     }
 }
-
+console.log('랜더분기처리',userState?.isLogin);
+if(!userState?.isLogin){
     return (
       <Space direction="vertical">
   <Form>
@@ -94,7 +106,11 @@ const index = (props: Props) => {
 </Form>
 </Space>
 )
-   
+    }else{
+      return(
+      <div>로그 인중입니다.</div>
+      )
+    }
 }
 
 export default index
