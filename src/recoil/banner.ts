@@ -1,7 +1,7 @@
 import { atom, useRecoilState } from "recoil";
 
 export type TBanner = {
-    //_id?: string;
+    _id?: string;
     bannerId?: string;
     name?: string;
     imgUrl?: string;
