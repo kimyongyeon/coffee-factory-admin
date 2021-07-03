@@ -1,4 +1,4 @@
-import { Alert, Button, Form, Input, PageHeader, Space } from 'antd';
+import { Alert, Button, Form, Input, notification, PageHeader, Space } from 'antd';
 import type { SizeType } from 'antd/lib/config-provider/SizeContext';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
@@ -8,7 +8,7 @@ import { TBanner, useBannerState } from '../../recoil/banner';
 const env = environment.prd;
 const hostName = env.host;
 const portName = env.port;
-const apiUrl = env.api();
+// const apiUrl = env.api();
 const apiName = 'banner';
 
 interface Props {
@@ -43,6 +43,14 @@ const Detail = (props: Props) => {
     )
   }
 
+  const openNotificationWithIcon = (type: string, msg: string) => {
+    notification[type]({
+      message: '알람',
+      description:
+        msg,
+    });
+  };
+
   const onClickEdit = (e: any) => {
     axios({
       method: 'put',
@@ -50,8 +58,15 @@ const Detail = (props: Props) => {
       responseType: 'json',
       data: bannerState,
     }).then(function (resp: any) {
-      resultAlert('수정 완료');
-      props.history.push(`/${apiName}`);
+      if (resp.data.code === '200') {
+        openNotificationWithIcon('success', '배너 수정을 완료 했습니다.');
+        props.history.push(`/${apiName}`);
+      } else {
+        openNotificationWithIcon('error', '배너 수정을 실패 했습니다.');
+      }
+    }).catch(e => {
+      console.error(e);
+      openNotificationWithIcon('error', '배너 수정을 실패 했습니다.');
     });
   }
 
