@@ -12,6 +12,7 @@ import { RecoilRoot } from 'recoil';
 import MenuList from '../Menu';
 import MenuDetail from '../Menu/detail';
 import BannerList from '../Banner';
+import BannerDetail from '../Banner/detail';
 
 const { Header, Content, Footer } = Layout;
 
@@ -47,6 +48,7 @@ function App({ }: AppProps) {
               <Route exact path="/menu" component={MenuList} />
               <Route exact path="/menu/detail" component={MenuDetail} />
               <Route exact path="/banner" component={BannerList} />
+              <Route exact path="/banner/detail" component={BannerDetail} />
             </div>
           </Content>
         </RecoilRoot>
