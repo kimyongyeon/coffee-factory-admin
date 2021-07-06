@@ -181,33 +181,33 @@ const Detail = (props: Props) => {
         size={componentSize as SizeType}
       >
         <Form.Item label="배너아이디">
-          <Input name='bannerId' value={bannerState?.bannerId} onChange={onInputChange} placeholder='배너아이디는 BN형식을 준수하자.' />
+          <Input name='bannerId' value={bannerState?.bannerId} onChange={onInputChange} placeholder='배너아이디는 BN형식을 준수하자.' style={{ width: 250 }} />
         </Form.Item>
         <Form.Item label="배너명">
-          <Input name='name' value={bannerState?.name} onChange={onInputChange} placeholder='배너명은 관리차원에서 등록하자.' />
+          <Input name='name' value={bannerState?.name} onChange={onInputChange} placeholder='배너명은 관리차원에서 등록하자.' style={{ width: 250 }} />
         </Form.Item>
         <Form.Item label="제목">
-          <Input name='title' value={bannerState?.title} onChange={onInputChange} placeholder='배너제목은 화면에 표시되는 영역'/>
+          <Input name='title' value={bannerState?.title} onChange={onInputChange} placeholder='배너제목은 화면에 표시되는 영역' style={{ width: 250 }} />
         </Form.Item>
         <Form.Item label="상세설명">
-          <Input name='description' value={bannerState?.description} onChange={onInputChange} placeholder='배너상세설명은 화면에 표시되는 영역'/>
+          <Input name='description' value={bannerState?.description} onChange={onInputChange} placeholder='배너상세설명은 화면에 표시되는 영역' style={{ width: 250 }} />
         </Form.Item>
         <Form.Item label="이미지주소">
           {/* <Input name='imgUrl' value={bannerState?.imgUrl} onChange={onInputChange} placeholder='이미지주소는 화면에 이미지로 표현되는 부분'/> */}
-          <Uploader />
+          <Uploader name='배너 이미지업로드' />
         </Form.Item>
         <Form.Item label="가로크기">
-          <Input name='width' value={bannerState?.width} onChange={onInputChange} placeholder='가로크기는 200을 초과하면 안이쁘다.'/>
+          <Input name='width' value={bannerState?.width} onChange={onInputChange} placeholder='가로크기는 200을 초과하면 안이쁘다.' style={{ width: 250 }} />
         </Form.Item>
         <Form.Item label="세로크기">
-          <Input name='height' value={bannerState?.height} onChange={onInputChange} placeholder='세로크기는 50을 초과하면 안이쁘다.'/>
+          <Input name='height' value={bannerState?.height} onChange={onInputChange} placeholder='세로크기는 50을 초과하면 안이쁘다.' style={{ width: 250 }} />
         </Form.Item>
         <Form.Item label="위치">
           <Select
             labelInValue
             // @ts-ignore
             defaultValue={{ value: 'TOP' }}
-            style={{ width: 120 }}
+            style={{ width: 250 }}
             onChange={onSelLocChange}
           >
             <Option value="TOP">상</Option>
@@ -216,20 +216,20 @@ const Detail = (props: Props) => {
           </Select>
         </Form.Item>
         <Form.Item label="시작일자">
-          <DatePicker onChange={onDatePickStartChange} />
+          <DatePicker onChange={onDatePickStartChange} style={{ width: 250 }} />
         </Form.Item>
         <Form.Item label="종료일자">
-          <DatePicker onChange={onDatePickEndChange} />
+          <DatePicker onChange={onDatePickEndChange} style={{ width: 250 }} />
         </Form.Item>
         <Form.Item label="정렬">
-          <Input name='sort' value={bannerState?.sort} onChange={onInputChange} placeholder='숫자만 등록 가능 합니다.' />
+          <Input name='sort' value={bannerState?.sort} onChange={onInputChange} placeholder='숫자만 등록 가능 합니다.' style={{ width: 250 }} />
         </Form.Item>
         <Form.Item label="게시유무">
           <Select
             labelInValue
             // @ts-ignore
             defaultValue={{ value: 'Y' }}
-            style={{ width: 120 }}
+            style={{ width: 250 }}
             onChange={onSelDeployChange}
           >
             <Option value="Y">사용</Option>
@@ -241,7 +241,7 @@ const Detail = (props: Props) => {
             labelInValue
             // @ts-ignore
             defaultValue={{ value: 'Y' }}
-            style={{ width: 120 }}
+            style={{ width: 250 }}
             onChange={onSelUseYnChange}
           >
             <Option value="Y">사용</Option>
